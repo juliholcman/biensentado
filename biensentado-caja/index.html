@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bien Sentado | Caja Interna</title>
+    
+    <!-- Google Fonts: Inter para UI limpia y Playfair Display para un toque clásico/elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beige: {
+                            50: '#faf9f6',
+                            100: '#f5f5f0',
+                            200: '#ebebe4',
+                            300: '#dfdfd5'
+                        },
+                        wood: {
+                            light: '#d2b48c',
+                            DEFAULT: '#c2a077',
+                            dark: '#a68252',
+                        },
+                        dark: '#1c1c1a',
+                        success: '#2e7d32',
+                        danger: '#c62828'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-beige-100 text-dark antialiased min-h-screen pb-12">
+
+    <!-- Header -->
+    <header class="bg-white px-6 py-5 shadow-sm sticky top-0 z-10 flex justify-center items-center">
+        <h1 class="font-serif text-3xl font-semibold tracking-wide text-dark select-none">
+            BienSentado<span class="text-wood">.</span>
+        </h1>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10">
+        
+        <!-- Formulario -->
+        <section class="bg-white bg-opacity-80 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8 border border-white">
+            <h2 class="text-xl font-medium mb-6 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-wood"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                Registrar Operación
+            </h2>
+            
+            <form id="registroForm" class="space-y-5">
+                
+                <!-- Tipo y Categoría (Grid) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label for="tipoMovimiento" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo de Movimiento</label>
+                        <select id="tipoMovimiento" required class="w-full px-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none appearance-none cursor-pointer text-sm sm:text-base">
+                            <option value="ingreso">INGRESO (Venta)</option>
+                            <option value="egreso">EGRESO (Gasto)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="categoria" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Categoría</label>
+                        <select id="categoria" required class="w-full px-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none appearance-none cursor-pointer text-sm sm:text-base">
+                            <!-- JS fill -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Detalle -->
+                <div class="space-y-1.5">
+                    <label for="detalle" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Detalle / Concepto</label>
+                    <input type="text" id="detalle" required placeholder="Ej. Venta 6 sillas Tulip negras" class="w-full px-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none text-sm sm:text-base placeholder-gray-400">
+                </div>
+
+                <!-- Monto y Medio de Pago (Grid) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1.5">
+                        <label for="monto" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Monto</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">$</span>
+                            <input type="number" id="monto" required min="0" step="0.01" placeholder="0.00" class="w-full pl-9 pr-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none text-sm sm:text-base font-medium">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label for="medioPago" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Medio de Pago</label>
+                        <select id="medioPago" required class="w-full px-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none appearance-none cursor-pointer text-sm sm:text-base">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="MercadoPago">MercadoPago</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Tarjeta Crédito/Débito">Tarjeta Crédito/Débito</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fecha -->
+                <div class="space-y-1.5">
+                    <label for="fecha" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</label>
+                    <input type="date" id="fecha" required class="w-full px-4 py-3.5 bg-beige-50 border border-beige-200 rounded-xl focus:ring-2 focus:ring-wood focus:border-wood transition-all outline-none text-sm sm:text-base cursor-pointer">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-4 sm:py-4.5 bg-dark text-white rounded-xl font-medium tracking-wide hover:bg-black transform active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        REGISTRAR MOVIMIENTO
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Visualización - Caja del Día -->
+        <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hidden" id="cajaSection">
+            <h2 class="text-xl font-medium mb-6">Caja del Día</h2>
+            
+            <div class="overflow-x-auto -mx-6 sm:mx-0">
+                <div class="inline-block min-w-full align-middle px-6 sm:px-0">
+                    <table class="min-w-full divide-y divide-beige-200">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</th>
+                                <th scope="col" class="py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Detalle</th>
+                                <th scope="col" class="py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider hidden sm:table-cell">Medio</th>
+                                <th scope="col" class="py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMovimientos" class="divide-y divide-beige-100">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-8 p-5 bg-beige-50 border border-beige-200 rounded-2xl flex flex-col sm:flex-row justify-between items-center sm:items-end gap-3">
+                <div class="text-sm text-gray-500 font-medium">Balance Total</div>
+                <div id="balanceTotal" class="text-3xl font-bold font-serif text-dark">$ 0,00</div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
